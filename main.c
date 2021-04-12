@@ -3,7 +3,7 @@
 #include "include/validator.h"
 
 int main(int argc, char **argv) {
-    char * type = argument_type(argc, argv);
-    printf("Type %s", type);
+    ArgumentsFields * arguments = argument_type(argc, argv);
+    printf("Type %s \n", arguments -> argument_type);
     return 0; 
 }

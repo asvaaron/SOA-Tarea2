@@ -1,5 +1,8 @@
 
+typedef struct ArgumentsFields {
+   char * argument_type;
 
+} ArgumentsFields;
 
-char* argument_type(int, char **);
+ArgumentsFields* argument_type(int, char **);
 
