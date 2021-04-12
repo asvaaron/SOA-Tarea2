@@ -6,7 +6,7 @@ CC=gcc
 CFLAGS= -std=c11 -w -I.
 LDFLAGS=-pthread -w -lm
 # Add dependencies
-DEPS=include/color.h include/validator.h include/car.h
+DEPS=include/validator.h 
 # Add source codes
 SRC_CD=src/validator.c
 
