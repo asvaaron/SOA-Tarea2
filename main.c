@@ -4,6 +4,6 @@
 
 int main(int argc, char **argv) {
     ArgumentsFields * arguments = argument_type(argc, argv);
-    printf("Type %s \n", arguments -> argument_type);
+    printf("Type %s \n", arguments -> flag);
     return 0; 
 }

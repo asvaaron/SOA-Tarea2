@@ -1,6 +1,6 @@
 
 typedef struct ArgumentsFields {
-   char * argument_type;
+   char * flag;
 
 } ArgumentsFields;
 
