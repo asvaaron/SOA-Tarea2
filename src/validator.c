@@ -9,9 +9,15 @@ ArgumentsFields* argument_type(int argc, char ** argv){
    int flagged = 0;
    int first = 0; 
    for (int i = 1; i < argc; i++) {
+      
       if (strcmp("-v", argv[i]) == 0 && flagged ==0) {
          arguments->flag = argv[i];
          flagged = 1;
+      }
+      else{
+         if (strcmp("-v", argv[i]) == 0){
+            j++;
+         }
       }
    
       if (strcmp("-V", argv[i]) == 0 && flagged ==0) {
@@ -22,6 +28,11 @@ ArgumentsFields* argument_type(int argc, char ** argv){
          flagged =1;
          
       }
+      else{
+         if (strcmp("-V", argv[i]) == 0){
+            j++;
+         }
+      }
       if( strcmp("-v", argv[i]) != 0 && strcmp("-V", argv[i])!= 0){
          if(first ==0){
             arguments -> program_command = argv[i];
@@ -30,10 +41,6 @@ ArgumentsFields* argument_type(int argc, char ** argv){
          else{
             j++;
          }
-      }
-      if((strcmp("-v", argv[i]) == 0  && flagged )|| (strcmp("-V", argv[i])== 0 && flagged)){
-         j++;
-         
       }
    }
    arguments->args = malloc(sizeof(char) * j);
