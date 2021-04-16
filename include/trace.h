@@ -18,6 +18,7 @@
 int trace_app(char* app_file, char** app_argv, int* call_counter, int wait);
 int run_app(char* app_file, char** app_argv);
 int trace_process(pid_t app_process, int* call_counter, int wait);
-int wait_for_system_call(pid_t app_process, int wait);
+int wait_for_system_call(pid_t app_process);
+void print_system_call_info(int call_number);
 
 #endif //SOA_TAREA2_TRACE_H

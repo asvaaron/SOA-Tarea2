@@ -1,3 +1,7 @@
+
+#ifndef SOA_TAREA2_VALIDATOR_H
+#define SOA_TAREA2_VALIDATOR_H
+
 #include <string.h>
 
 typedef struct ArgumentsFields {
@@ -11,3 +15,5 @@ typedef struct ArgumentsFields {
 ArgumentsFields* argument_type(int, char **);
 
 void concat_strings(char *, char *);
+
+#endif

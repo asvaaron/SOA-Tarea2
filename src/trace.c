@@ -39,11 +39,12 @@ int run_app(char* app_file, char** app_argv) {
     return 0;
 }
 
-int wait_for_system_call(pid_t app_process, int wait) {
+int wait_for_system_call(pid_t app_process) {
     int status;
     while (1) {
         // continue execution on app process (right before execvp the first time), after every system call
         ptrace(PTRACE_SYSCALL, app_process, 0, 0);
+        // wait until the app process is stopped.
         waitpid(app_process, &status, 0);
         /**
          *  WIFSTOPPED(status) returns true if the child process was stopped by delivery of a signal;
@@ -52,11 +53,8 @@ int wait_for_system_call(pid_t app_process, int wait) {
          *          This macro should only be employed if WIFSTOPPED returned true.
          */
         // the app process stop, check status to find the reason.
-        // 0x80 makes sure is a system call because of PTRACE_0_TRACESYSGOOD option
+        // 0x80 makes sure is a system call because of PTRACE_0_TRACESYSGOOD option set highest bit.
         if (WIFSTOPPED(status) && WSTOPSIG(status) & 0x80) {
-            if (wait) {
-                // TODO: wait for user input.
-            }
             return 1; // continue execution
         }
         // app process finished.
@@ -72,9 +70,20 @@ int trace_process(pid_t app_process, int* call_counter, int wait) {
     waitpid(app_process, &status, 0);
     // when child process stops due to system call, signal will be SIGTRAP
     // sets highest bit (0x80), to differentiate syscalls from others kind of stops
-    ptrace(PTRACE_SETOPTIONS, app_process, 0, PTRACE_0_TRACESYSGOOD);
-    while(wait_for_system_call(app_process, wait)) {
-        call_number = ptrace(PTRACE_PEEKUSER, app_process, sizeof(long)*ORIG_EAX);
+    ptrace(PTRACE_SETOPTIONS, app_process, 0, PTRACE_O_TRACESYSGOOD);
+    //waits until system call starts
+    while(wait_for_system_call(app_process)) {
+        call_number = ptrace(PTRACE_PEEKUSER, app_process, sizeof(long)*ORIG_RAX);
         call_counter[call_number]++;
+        print_system_call_info(call_number);
+        //wait until system call ends. (for each system call notifies twice start/end)
+        wait_for_system_call(app_process);
+        if (wait) {
+            getchar();
+        }
     }
+}
+
+void print_system_call_info(int call_number) {
+    fprintf(stdout, "System call: %d", call_number);
 }
