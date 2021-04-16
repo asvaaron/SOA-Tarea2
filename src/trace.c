@@ -20,32 +20,34 @@ int trace_app(char* app_file, char** app_argv, int* call_counter, int wait) {
 int run_app(char* app_file, char** app_argv) {
     int error = ptrace(PTRACE_TRACEME); //trace this process
     if (error == -1) {
-        fprintf(stderr, "Fail to PTRACE_TRACEME\n");
-        return error;
+        fprintf(stdout,"Fail to PTRACE_TRACEME\n");
+        exit(errno);
     }
     // Every signal is send by parent process, because this process is being trace.
     // wake up parent to trace system calls of execvp (app) process, and stop current execution.
     error = kill(getpid(), SIGSTOP);
     if (error == -1) {
-        fprintf(stderr, "Fail to SIGSTOP child process\n");
-        return error;
+        fprintf(stdout,"Fail to SIGSTOP child process\n");
+        exit(errno);
     }
     // execute application as child process
-    error = execvp(app_file, app_argv);
-    if (error == -1) {
-        fprintf(stderr, "Fail to execvp %s\n", app_file);
-        return error;
-    }
-    return 0;
+    execvp(app_file, app_argv);
+    exit(errno);
 }
 
 int wait_for_system_call(pid_t app_process) {
-    int status;
+    int status, error;
     while (1) {
         // continue execution on app process (right before execvp the first time), after every system call
-        ptrace(PTRACE_SYSCALL, app_process, 0, 0);
+        error = ptrace(PTRACE_SYSCALL, app_process, 0, 0);
+        if (error == -1) {
+            return 0; // exit execution
+        }
         // wait until the app process is stopped.
-        waitpid(app_process, &status, 0);
+        error = waitpid(app_process, &status, 0);
+        if (error == -1) {
+            return 0;
+        }
         /**
          *  WIFSTOPPED(status) returns true if the child process was stopped by delivery of a signal;
          *          this is only possible if the call was done using WUNTRACED or when the child is being traced (see ptrace(2)).
@@ -59,8 +61,12 @@ int wait_for_system_call(pid_t app_process) {
         }
         // app process finished.
         if (WIFEXITED(status)) {
+            fprintf(stdout,"Process finished\n");
             return 0; //end execution
         }
+//        if (status == 2943) {
+//            getchar();
+//        }
     }
 }
 
@@ -82,8 +88,9 @@ int trace_process(pid_t app_process, int* call_counter, int wait) {
             getchar();
         }
     }
+    return 0;
 }
 
 void print_system_call_info(int call_number) {
-    fprintf(stdout, "System call: %d", call_number);
+    fprintf(stdout, "System call: %d\n", call_number);
 }

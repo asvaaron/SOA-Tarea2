@@ -43,6 +43,7 @@ ArgumentsFields* argument_type(int argc, char ** argv){
          }
       }
    }
+   j+=1;
    arguments->args = malloc(sizeof(char) * j);
    arguments->wait = wait;
    arguments->program_command_args_size = j;
