@@ -6,9 +6,9 @@ CC=gcc
 CFLAGS= -std=c11 -w -I.
 LDFLAGS=-pthread -w -lm
 # Add dependencies
-DEPS=include/validator.h 
+DEPS=include/validator.h include/trace.h
 # Add source codes
-SRC_CD=src/validator.c
+SRC_CD=src/validator.c src/trace.c
 
 TARGET=main main.o
 
