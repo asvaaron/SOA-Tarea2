@@ -92,5 +92,10 @@ int trace_process(pid_t app_process, int* call_counter, int wait) {
 }
 
 void print_system_call_info(int call_number) {
-    fprintf(stdout, "System call: %d\n", call_number);
+    fprintf(
+        stdout, "System call: %d name:%s location:%s \n",
+        call_number,
+        system_calls_list[call_number].sys_name,
+        system_calls_list[call_number].implementation_path
+    );
 }
