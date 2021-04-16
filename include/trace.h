@@ -12,6 +12,7 @@
 #include <sys/ptrace.h>
 #include <sys/wait.h>
 #include <sys/reg.h>
+#include <errno.h>
 
 #define SYSTEM_CALLS 350
 
