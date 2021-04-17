@@ -43,12 +43,12 @@ ArgumentsFields* argument_type(int argc, char ** argv){
          }
       }
    }
+   j+=1;
    arguments->args = malloc(sizeof(char) * j);
    arguments->wait = wait;
    arguments->program_command_args_size = j;
    int z = 0;
    for(int i=(argc-j);i<argc; i++){
-      printf("z: %d i: %d \n",z,i);
       arguments -> args[z] = argv[i];
       z++;
    }
