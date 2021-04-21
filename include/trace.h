@@ -21,6 +21,7 @@ int run_app(char* app_file, char** app_argv);
 int trace_process(pid_t app_process, int* call_counter, int wait);
 int wait_for_system_call(pid_t app_process);
 void print_system_call_info(int call_number);
+void print_system_calls_table_info(int syscalls[], int size);
 
 typedef struct system_calls {
 	const char *sys_name;

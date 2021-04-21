@@ -99,3 +99,11 @@ void print_system_call_info(int call_number) {
         system_calls_list[call_number].implementation_path
     );
 }
+
+void print_system_calls_table_info(int syscalls[], int size){
+    for (int i = 0; i < size; ++i) {
+        if(syscalls[i] !=0){
+            printf("System call: %d, Count %d\n", i, syscalls[i]);
+        }
+    }
+}
