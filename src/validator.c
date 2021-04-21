@@ -1,8 +1,8 @@
 #include "../include/validator.h"
 
 
-ArgumentsFields* argument_type(int argc, char ** argv){
-   ArgumentsFields * arguments = malloc(sizeof(ArgumentsFields));
+struct_arguments_fields* argument_type(int argc, char ** argv){
+   struct_arguments_fields * arguments = malloc(sizeof(struct_arguments_fields));
    char * args[argc-1]; 
    int j = 0;
    int wait = 0;

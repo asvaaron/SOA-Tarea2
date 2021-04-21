@@ -10,9 +10,9 @@ typedef struct ArgumentsFields {
    char * program_command;
    char ** args;
    int program_command_args_size;
-} ArgumentsFields;
+} struct_arguments_fields;
 
-ArgumentsFields* argument_type(int, char **);
+struct_arguments_fields* argument_type(int, char **);
 
 void concat_strings(char *, char *);
 
