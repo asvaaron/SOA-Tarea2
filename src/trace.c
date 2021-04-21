@@ -108,7 +108,7 @@ void gotoxy(int x,int y)
 
 
 void print_system_calls_table_info(int syscalls[], int size){
-    printf(" \n\n\tSystem Calls Table Infomation \n");
+    printf(" \n\n\tSystem Calls Table Information \n");
     printf("===============================================\n");
     printf("Sys Call ID                   Name       Count\n");
     printf("===============================================\n");
