@@ -22,4 +22,14 @@ int trace_process(pid_t app_process, int* call_counter, int wait);
 int wait_for_system_call(pid_t app_process);
 void print_system_call_info(int call_number);
 
+typedef struct system_calls {
+	const char *sys_name;
+	const char *entry_code;
+	const char *implementation_path;
+} struct_system_calls;
+    
+static const struct_system_calls system_calls_list [] = {
+    #include "system_calls_map.h"
+};
+
 #endif //SOA_TAREA2_TRACE_H
