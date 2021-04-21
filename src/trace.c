@@ -100,10 +100,21 @@ void print_system_call_info(int call_number) {
     );
 }
 
+
+void gotoxy(int x,int y)
+{
+    printf("%c[%d;%df",0x1B,y,x);
+}
+
+
 void print_system_calls_table_info(int syscalls[], int size){
+    printf("========================================================\n");
+    printf("Sys Call ID                   Name       Count\n");
+    printf("========================================================\n");
+
     for (int i = 0; i < size; ++i) {
         if(syscalls[i] !=0){
-            printf("System call: %d, Count %d\n", i, syscalls[i]);
+            printf("%11d%23s%12d\n", i, system_calls_list[i].sys_name, syscalls[i]);
         }
     }
 }
