@@ -24,7 +24,7 @@ Para ejecutar el programa se puede hacer uso de las banderas -v y -V. La bandera
 En el caso particular de que no venga ninguna bandera -v o -V se asume por default que el usuario introdujo la bandera -v. 
 
 
-### Ejemplos
+### Ejemplos:
 
 ```bash 
 ./main ls -al
