@@ -19,9 +19,16 @@ make clean
 
 ## Ejecutar Programa
 
-Para ejecutar el programa se puede hacer uso de las banderas -v y -V. La bandera -v despliega un mensaje cada vez que detecte un System Call, mientras que -V hace una pausa hasta que el usuario presione cualquier tecla para continuar la ejecucion. 
+Para ejecutar el progama rastreador es necesario utilizar la siguiente estructura:
 
-En el caso particular de que no venga ninguna bandera -v o -V se asume por default que el usuario introdujo la bandera -v. 
+
+```bash
+./main [opciones rastreador] Prog [opciones de Prog]
+```
+
+Siendo las opciones del rastreador las banderas -v y -V. La bandera -v despliega un mensaje cada vez que detecte un System Call, mientras que -V hace una pausa hasta que el usuario presione cualquier tecla para continuar la ejecución. 
+
+En el caso particular de que no venga ninguna bandera -v o -V, se asume por default que el usuario introdujo la bandera -v.
 
 
 ### Ejemplos:
